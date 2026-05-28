@@ -38,7 +38,7 @@ jobs:
 
       - name: Show Azure account info
         run: az account show
-        
+
       - name: Install Azure ML CLI
         run: |
           az extension add -n ml -y
@@ -63,6 +63,13 @@ jobs:
           echo "resource_group=$RG_NAME" >> "$GITHUB_OUTPUT"
           echo "workspace=$WS_NAME" >> "$GITHUB_OUTPUT"
           echo "subscription_id=$SUBSCRIPTION_ID" >> "$GITHUB_OUTPUT"
+
+
+      - name: Verify detected values
+        run: |
+          echo "Subscription ID: ${{ steps.detect.outputs.subscription_id }}"
+          echo "Resource Group:  ${{ steps.detect.outputs.resource_group }}"
+          echo "Workspace:       ${{ steps.detect.outputs.workspace }}"
 
       - name: Deploy model to managed online endpoint
         id: deploy
